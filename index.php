@@ -226,7 +226,32 @@ $extractarray= mysqli_fetch_array($result);
                       </tr>
                       <tr>
                         <td>Do you agree to share your bank account details with the Govt. of Rajasthan? By enabling "yes" you provide the entire access to your bank account details and agree to allow auto-deduction of the tax amounts and bill amounts. </td>
-                        <td id="bdpb"><input type="text" name="authresponse" id="authresponse"></td>
+                        <td id="tabl">
+<form method="post">
+
+                  <input type="radio" name="Radio" value="Yes">Yes <br>
+                  <input type="radio" name="Radio" value="No">No
+                  <input type="submit" name="Submit" value="Submit">
+    <?php 
+ $conn=mysqli_connect("localhost","root","","rajasthan-hackathon");
+
+//Check Connection
+ if(mysqli_connect_errno())
+   { 
+    echo "Failed to connect".mysqli_connect_error();
+   }   
+
+   $radio=isset($_POST['Radio']) ? $_POST["Radio"] : NULL;
+   $sql="INSERT INTO atbm(AuthorisationResponse)VALUES ('$radio')";
+   if(isset($_POST["Submit"]) )
+   {
+   mysqli_query($conn,$sql) or die (mysqli_error($conn)); 
+   }
+mysqli_close($conn);
+    ?>
+
+  </form>
+                        </td>
                       </tr>
                         </table>   
                         
@@ -294,7 +319,7 @@ $extractarray= mysqli_fetch_array($result);
                         </div><!-- / calendar -->
                       
                   </div><!-- /col-lg-3 -->
-              </div><! --/row -->
+              </div>
        </section>
       </section>
 
